@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bio-Materials Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .hero-gradient {
+            background: linear-gradient(135deg, #e6f7e9 0%, #ffffff 100%);
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .search-input:focus {
+            box-shadow: 0 0 0 3px rgba(72, 187, 120, 0.2);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="text-2xl font-bold text-green-600 flex items-center">
+                    <span class="mr-2">Bio-Materials Dashboard</span>
+                </a>
+                <nav class="flex space-x-4">
+                    <a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 flex items-center">
+                        <i class="fas fa-home mr-1"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="search.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 flex items-center">
+                        <i class="fas fa-search mr-1"></i>
+                        <span>Search</span>
+                    </a>
+                    <a href="profile.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 flex items-center">
+                        <i class="fas fa-user mr-1"></i>
+                        <span>Profile</span>
+                    </a>
+                    <a href="about.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 flex items-center">
+                        <i class="fas fa-info-circle mr-1"></i>
+                        <span>About</span>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="hero-gradient">
+            <div class="container mx-auto px-4 py-16">
+                <div class="text-center mb-12">
+                    <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+                        Find Sustainable Bio-Materials
+                    </h1>
+                    <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                        Search our comprehensive database of bio-based materials using natural language queries to find the perfect sustainable solution for your needs.
+                    </p>
+                </div>
+
+                <div class="max-w-3xl mx-auto mb-16">
+                    <div class="relative">
+                        <input type="text" id="search-input" placeholder="Search for sustainable materials..." class="search-input w-full px-5 py-4 pr-12 text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-green-500 transition duration-150">
+                        <button id="search-button" class="absolute right-0 top-0 mt-3 mr-4 text-green-600 hover:text-green-800">
+                            <i class="fas fa-search text-xl"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                    <div class="bg-white p-6 rounded-lg shadow-md transition duration-300 card-hover">
+                        <h2 class="text-xl font-semibold text-gray-800 mb-3">Natural Language Search</h2>
+                        <p class="text-gray-600 mb-4">
+                            Search for materials using plain language like "biodegradable packaging material with high strength" to find exactly what you need.
+                        </p>
+                        <a href="search.html" class="text-green-600 hover:text-green-800 font-medium flex items-center">
+                            Try it now <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-md transition duration-300 card-hover">
+                        <h2 class="text-xl font-semibold text-gray-800 mb-3">Detailed Material Information</h2>
+                        <p class="text-gray-600 mb-4">
+                            Access comprehensive data about each material, including properties, sustainability metrics, applications, and processing methods.
+                        </p>
+                        <a href="material-detail.html?id=mat-1" class="text-green-600 hover:text-green-800 font-medium flex items-center">
+                            View example <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-md transition duration-300 card-hover">
+                        <h2 class="text-xl font-semibold text-gray-800 mb-3">Save Your Favorites</h2>
+                        <p class="text-gray-600 mb-4">
+                            Create an account to save your favorite materials, track your search history, and get personalized recommendations.
+                        </p>
+                        <a href="register.html" class="text-green-600 hover:text-green-800 font-medium flex items-center">
+                            Sign up now <i class="fas fa-arrow-right ml-1"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="bg-green-50 p-8 rounded-lg">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-4 text-center">
+                        Featured Materials
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div class="bg-white p-4 rounded-md shadow-sm transition duration-300 card-hover">
+                            <h3 class="font-semibold text-lg mb-1">BioPLA+</h3>
+                            <p class="text-sm text-gray-600 mb-2">A high-performance PLA-based bioplastic with enhanced mechanical properties.</p>
+                            <div class="flex space-x-2">
+                                <span class="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">Biodegradable</span>
+                                <span class="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">Compostable</span>
+                            </div>
+                            <a href="material-detail.html?id=mat-1" class="block mt-3 text-green-600 hover:text-green-800 text-sm">View details</a>
+                        </div>
+                        <div class="bg-white p-4 rounded-md shadow-sm transition duration-300 card-hover">
+                            <h3 class="font-semibold text-lg mb-1">EcoFiber Composite</h3>
+                            <p class="text-sm text-gray-600 mb-2">Natural fiber reinforced biocomposite with excellent strength-to-weight ratio.</p>
+                            <div class="flex space-x-2">
+                                <span class="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">Recyclable</span>
+                                <span class="px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded-full">Automotive</span>
+                            </div>
+                            <a href="material-detail.html?id=mat-2" class="block mt-3 text-green-600 hover:text-green-800 text-sm">View details</a>
+                        </div>
+                        <div class="bg-white p-4 rounded-md shadow-sm transition duration-300 card-hover">
+                            <h3 class="font-semibold text-lg mb-1">AlgaeFoam</h3>
+                            <p class="text-sm text-gray-600 mb-2">Biodegradable foam material derived from algae for packaging and insulation.</p>
+                            <div class="flex space-x-2">
+                                <span class="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">Biodegradable</span>
+                                <span class="px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded-full">Packaging</span>
+                            </div>
+                            <a href="material-detail.html?id=mat-3" class="block mt-3 text-green-600 hover:text-green-800 text-sm">View details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-sm text-gray-500 mb-4 md:mb-0">
+                    &copy; 2025 Bio-Materials Dashboard. All rights reserved.
+                </p>
+                <div class="flex space-x-4">
+                    <a href="terms.html" class="text-sm text-gray-500 hover:text-gray-700">
+                        Terms
+                    </a>
+                    <a href="privacy.html" class="text-sm text-gray-500 hover:text-gray-700">
+                        Privacy
+                    </a>
+                    <a href="contact.html" class="text-sm text-gray-500 hover:text-gray-700">
+                        Contact
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search-input');
+            const searchButton = document.getElementById('search-button');
+
+            function performSearch() {
+                const query = searchInput.value.trim();
+                if (query) {
+                    window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+                }
+            }
+
+            searchButton.addEventListener('click', performSearch);
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

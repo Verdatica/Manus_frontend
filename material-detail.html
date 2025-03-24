@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Material Details - Bio-Materials Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .tab-active {
+            border-bottom: 2px solid #48bb78;
+            color: #2f855a;
+        }
+        .property-row:nth-child(odd) {
+            background-color: #f9fafb;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="text-2xl font-bold text-green-600 flex items-center">
+                    <span class="mr-2">Bio-Materials Dashboard</span>
+                </a>
+                <nav class="flex space-x-4">
+                    <a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 flex items-center">
+                        <i class="fas fa-home mr-1"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="search.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 flex items-center">
+                        <i class="fas fa-search mr-1"></i>
+                        <span>Search</span>
+                    </a>
+                    <a href="profile.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 flex items-center">
+                        <i class="fas fa-user mr-1"></i>
+                        <span>Profile</span>
+                    </a>
+                    <a href="about.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 flex items-center">
+                        <i class="fas fa-info-circle mr-1"></i>
+                        <span>About</span>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="mb-4">
+            <a href="search.html" class="text-green-600 hover:text-green-800 flex items-center">
+                <i class="fas fa-arrow-left mr-2"></i>
+                Back to Search Results
+            </a>
+        </div>
+
+        <div id="material-container">
+            <!-- Material details will be loaded here -->
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 mt-12">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-sm text-gray-500 mb-4 md:mb-0">
+                    &copy; 2025 Bio-Materials Dashboard. All rights reserved.
+                </p>
+                <div class="flex space-x-4">
+                    <a href="terms.html" class="text-sm text-gray-500 hover:text-gray-700">
+                        Terms
+                    </a>
+                    <a href="privacy.html" class="text-sm text-gray-500 hover:text-gray-700">
+                        Privacy
+                    </a>
+                    <a href="contact.html" class="text-sm text-gray-500 hover:text-gray-700">
+                        Contact
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const materialContainer = document.getElementById('material-container');
+            
+            // Sample materials data
+            const materials = {
+                'mat-1': {
+                    id: 'mat-1',
+                    name: 'BioPLA+',
+                    type: 'Bioplastic',
+                    subtype: 'PLA',
+                    description: 'A high-performance PLA-based bioplastic with enhanced mechanical properties suitable for packaging applications. This advanced material combines the biodegradability of traditional PLA with improved heat resistance and durability.',
+                    image: 'https://placehold.co/800x400/00A86B/FFFFFF?text=BioPLA%2B',
+                    sustainability: {
+                        biodegradable: true,
+                        compostable: true,
+                        recyclable: true,
+                        biobased_content: 95,
+                        carbon_footprint: '2.1 kg CO2e/kg',
+                        water_usage: '40 L/kg',
+                        energy_consumption: '48 MJ/kg',
+                        end_of_life: 'Industrial composting (preferred), recycling'
+                    },
+                    properties: {
+                        physical: {
+                            'Density': '1.24 g/cm³',
+                            'Melt Flow Index': '6 g/10min (190°C/2.16kg)',
+                            'Water Absorption': '0.3%'
+                        },
+                        mechanical: {
+                            'Tensile Strength': '65 MPa',
+                            'Flexural Modulus': '3.6 GPa',
+                            'Impact Strength': '5.5 kJ/m²',
+                            'Elongation at Break': '4%'
+                        },
+                        thermal: {
+                            'Heat Deflection Temperature': '110°C',
+                            'Vicat Softening Point': '155°C',
+                            'Melting Point': '175°C',
+                            'Glass Transition Temperature': '60°C'
+                        },
+                        processing: {
+                            'Processing Temperature': '180-210°C',
+                            'Mold Temperature': '20-30°C',
+                            'Drying Conditions': '4-6 hours at 80°C'
+                        }
+                    },
+                    applications: ['Food packaging', 'Disposable cutlery', 'Consumer goods', 'Medical packaging'],
+                    manufacturers: [
+                        {name: 'EcoPlastics Inc.', location: 'USA', website: '#'},
+                        {name: 'GreenPolymer GmbH', location: 'Germany', website: '#'},
+                        {name: 'BioMat Solutions', location: 'Netherlands', website: '#'}
+                    ],
+                    certifications: ['EN 13432', 'ASTM D6400', 'TÜV Austria OK Compost'],
+                    case_studies: [
+                        {
+                            title: 'Sustainable Food Packaging for Organic Products',
+                            company: 'NatureFood Co.',
+                            description: 'NatureFood Co. replaced conventional plastic packaging with BioPLA+ for their organic product line, reducing carbon footprint by 40% while maintaining shelf life requirements.',
+                            results: 'Improved brand image, 15% sales increase, and 40% carbon footprint reduction.'
+                        }
+                    ]
+                },
+                'mat-2': {
+                    id: 'mat-2',
+                    name: 'EcoFiber Composite',
+                    type: 'Biocomposite',
+                    subtype: 'Fiber-reinforced',
+                    description: 'Natural fiber reinforced biocomposite with excellent strength-to-weight ratio for automotive interior components. This innovative material combines plant fibers with bio-based resins to create a sustainable alternative to glass fiber composites.',
+                    image: 'https://placehold.co/800x400/4B9CD3/FFFFFF?text=EcoFiber',
+                    sustainability: {
+                        biodegradable: false,
+                        compostable: false,
+                        recyclable: true,
+                        biobased_content: 80,
+                        carbon_footprint: '1.8 kg CO2e/kg',
+                        water_usage: '35 L/kg',
+                        energy_consumption: '42 MJ/kg',
+                        end_of_life: 'Mechanical recycling, energy recovery'
+                    },
+                    properties: {
+                        physical: {
+                            'Density': '1.15 g/cm³',
+                            'Fiber Content': '30-40% by weight',
+                            'Water Absorption': '0.7%'
+                        },
+                        mechanical: {
+                            'Tensile Strength': '78 MPa',
+                            'Flexural Modulus': '5.2 GPa',
+                            'Impact Strength': '12 kJ/m²',
+                            'Elongation at Break': '2.5%'
+                        },
+                        thermal: {
+                            'Heat Deflection Temperature': '130°C',
+                            'Vicat Softening Point': '145°C',
+                            'Continuous Service Temperature': '100°C'
+                        },
+                        processing: {
+                            'Processing Temperature': '170-190°C',
+                            'Mold Temperature': '40-60°C',
+                            'Drying Conditions': '3-4 hours at 80°C'
+                        }
+                    },
+                    applications: ['Automotive interior panels', 'Door trims', 'Furniture components', 'Construction elements'],
+                    manufacturers: [
+                        {name: 'NaturalComposite Technologies', location: 'Canada', website: '#'},
+                        {name: 'FiberTech Industries', location: 'France', website: '#'},
+                        {name: 'EcoMaterial Solutions', location: 'Japan', website: '#'}
+                    ],
+                    certifications: ['ISO 14001', 'Cradle to Cradle Silver', 'REACH Compliant'],
+                    case_studies: [
+                        {
+                            title: 'Lightweight Door Panels for Electric Vehicles',
+                            company: 'EcoMobility Vehicles',
+                            description: 'EcoMobility Vehicles replaced traditional glass fiber composites with EcoFiber Composite for door panels, reducing weight by 25% and improving sustainability metrics.',
+                            results: 'Vehicle weight reduction of 8kg per car, improved fuel efficiency, and enhanced sustainability rating.'
+                        }
+                    ]
+                },
+                'mat-3': {
+                    id: 'mat-3',
+                    name: 'AlgaeFoam',
+                    type: 'Bioplastic',
+                    subtype: 'Foam',
+                    description: 'Biodegradable foam material derived from algae, suitable for protective packaging and insulation. This innovative material offers a sustainable alternative to petroleum-based foams with comparable performance characteristics.',
+                    image: 'https://placehold.co/800x400/F26419/FFFFFF?text=AlgaeFoam',
+                    sustainability: {
+                        biodegradable: true,
+                        compostable: true,
+                        recyclable: false,
+                        biobased_content: 100,
+                        carbon_footprint: '0.8 kg CO2e/kg',
+                        water_usage: '25 L/kg',
+                        energy_consumption: '35 MJ/kg',
+                        end_of_life: 'Home or industrial composting'
+                    },
+                    properties: {
+                        physical: {
+                            'Density': '0.035 g/cm³',
+                            'Cell Structure': 'Closed cell',
+                            'Water Absorption': '1.2%'
+                        },
+                        mechanical: {
+                            'Compressive Strength': '120 kPa',
+                            'Tensile Strength': '180 kPa',
+                            'Elongation at Break': '15%'
+                        },
+                        thermal: {
+                            'Thermal Conductivity': '0.038 W/mK',
+                            'Maximum Service Temperature': '80°C',
+                            'Flame Retardancy': 'UL94 HF-1'
+                        },
+                        processing: {
+                            'Processing Method': 'Extrusion foaming',
+                            'Expansion Ratio': '20-30x',
+                            'Post-processing': 'Thermoforming compatible'
+                        }
+                    },
+                    applications: ['Protective packaging', 'Thermal insulation', 'Cushioning materials', 'Buoyancy aids'],
+                    manufacturers: [
+                        {name: 'BlueGreen Materials', location: 'USA', website: '#'},
+                        {name: 'AlgaeTech Innovations', location: 'Australia', website: '#'},
+                        {name: 'OceanFoam Ltd.', location: 'UK', website: '#'}
+                    ],
+                    certifications: ['ASTM D6400', 'EN 13432', 'BPI Certified Compostable'],
+                    case_studies: [
+                        {
+                            title: 'Sustainable Electronics Packaging',
+                            company: 'EcoTech Electronics',
+                            description: 'EcoTech Electronics replaced EPS foam packaging with AlgaeFoam for their premium product line, eliminating non-biodegradable waste and improving brand image.',
+                            results: 'Eliminated 12 tons of EPS waste annually, improved customer satisfaction, and achieved packaging sustainability goals.'
+                        }
+                    ]
+                }
+            };
+            
+            // Get material ID from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const materialId = urlParams.get('id');
+            
+            if (materialId && materials[materialId]) {
+                const material = materials[materialId];
+                
+                // Create sustainability badges
+                const sustainabilityBadges = [];
+                if (material.sustainability.biodegradable) {
+                    sustainabilityBadges.push('<span class="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">Biodegradable</span>');
+                }
+                if (material.sustainability.compostable) {
+                    sustainabilityBadges.push('<span class="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">Compostable</span>');
+                }
+                if (material.sustainability.recyclable) {
+                    sustainabilityBadges.push('<span class="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">Recyclable</span>');
+                }
+                
+                // Create application badges
+                const applicationBadges = material.applications.map(app => 
+                    `<span class="px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded-full">${app}</span>`
+                );
+                
+                // Create HTML for material details
+                const materialHTML = `
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden">
+                        <div class="relative h-64 md:h-80">
+                            <img src="${material.image}" alt="${material.name}" class="w-full h-full object-cover">
+                            <div class="absolute top-0 right-0 m-4">
+                                <button id="favorite-btn" class="bg-white p-2 rounded-full shadow-md hover:bg-gray-100">
+                                    <i class="far fa-heart text-gray-600"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="p-6">
+                            <div class="flex flex-col md:flex-row md:justify-between md:items-start mb-4">
+                                <div>
+                                    <h1 class="text-3xl font-bold text-gray-900">${material.name}</h1>
+                                    <div class="flex items-center mt-1">
+                                        <span class="text-lg font-medium text-gray-600">${material.type}</span>
+                                        ${material.subtype ? `<span class="mx-2 text-gray-400">•</span><span class="text-lg text-gray-600">${material.subtype}</span>` : ''}
+                                    </div>
+                                </div>
+                                <div class="mt-2 md:mt-0 px-3 py-2 bg-green-50 rounded-lg text-center">
+                                    <div class="text-sm text-gray-600">Bio-based Content</div>
+                                    <div class="text-2xl font-bold text-green-600">${material.sustainability.biobased_content}%</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                ${sustainabilityBadges.join('')}
+                                ${applicationBadges.join('')}
+                            </div>
+                            
+                            <div class="mb-8">
+                                <h2 class="text-xl font-semibold text-gray-800 mb-2">Description</h2>
+                                <p class="text-gray-600">${material.description}</p>
+                            </div>
+                            
+                            <!-- Tabs -->
+                            <div class="border-b border-gray-200 mb-6">
+                                <div class="flex overflow-x-auto">
+                                    <button class="tab-btn tab-active px-4 py-2 font-medium text-gray-800" data-tab="properties">Properties</button>
+                                    <button class="tab-btn px-4 py-2 font-medium text-gray-500" data-tab="sustainability">Sustainability</button>
+                                    <button class="tab-btn px-4 py-2 font-medium text-gray-500" data-tab="applications">Applications</button>
+                                    <button class="tab-btn px-4 py-2 font-medium text-gray-500" data-tab="manufacturers">Manufacturers</button>
+                                    <button class="tab-btn px-4 py-2 font-medium text-gray-500" data-tab="case-studies">Case Studies</button>
+                                </div>
+                            </div>
+                            
+                            <!-- Tab Content -->
+                            <div class="tab-content">
+                                <!-- Properties Tab -->
+                                <div id="properties-tab" class="tab-pane active">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <!-- Physical Properties -->
+                                        <div class="bg-gray-50 p-4 rounded-lg">
+                                            <h3 class="font-semibold text-gray-800 mb-3">Physical Properties</h3>
+                                            <div class="space-y-2">
+                                                ${Object.entries(material.properties.physical).map(([key, value]) => `
+                                                    <div class="property-row flex justify-between py-1 px-2">
+                                                        <span class="text-gray-600">${key}</span>
+                                                        <span class="font-medium">${value}</span>
+                                                    </div>
+                                                `).join('')}
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Mechanical Properties -->
+                                        <div class="bg-gray-50 p-4 rounded-lg">
+                                            <h3 class="font-semibold text-gray-800 mb-3">Mechanical Properties</h3>
+                                            <div class="space-y-2">
+                                                ${Object.entries(material.properties.mechanical).map(([key, value]) => `
+                                                    <div class="property-row flex justify-between py-1 px-2">
+                                                        <span class="text-gray-600">${key}</span>
+                                                        <span class="font-medium">${value}</span>
+                                                    </div>
+                                                `).join('')}
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Thermal Properties -->
+                                        <div class="bg-gray-50 p-4 rounded-lg">
+                                            <h3 class="font-semibold text-gray-800 mb-3">Thermal Properties</h3>
+                                            <div class="space-y-2">
+                                                ${Object.entries(material.properties.thermal).map(([key, value]) => `
+                                                    <div class="property-row flex justify-between py-1 px-2">
+                                                        <span class="text-gray-600">${key}</span>
+                                                        <span class="font-medium">${value}</span>
+                                                    </div>
+                                                `).join('')}
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Processing Properties -->
+                                        <div class="bg-gray-50 p-4 rounded-lg">
+                                            <h3 class="font-semibold text-gray-800 mb-3">Processing Information</h3>
+                                            <div class="space-y-2">
+                                                ${Object.entries(material.properties.processing).map(([key, value]) => `
+                                                    <div class="property-row flex justify-between py-1 px-2">
+                                                        <span class="text-gray-600">${key}</span>
+                                                        <span class="font-medium">${value}</span>
+                                                    </div>
+                                                `).join('')}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Sustainability Tab -->
+                                <div id="sustainability-tab" class="tab-pane hidden">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div class="bg-gray-50 p-4 rounded-lg">
+                                            <h3 class="font-semibold text-gray-800 mb-3">Environmental Impact</h3>
+                                            <div class="space-y-2">
+                                                <div class="property-row flex justify-between py-1 px-2">
+                                                    <span class="text-gray-600">Carbon Footprint</span>
+                                                    <span class="font-medium">${material.sustainability.carbon_footprint}</span>
+                                                </div>
+                                                <div class="property-row flex justify-between py-1 px-2">
+                                                    <span class="text-gray-600">Water Usage</span>
+                                                    <span class="font-medium">${material.sustainability.water_usage}</span>
+                                                </div>
+                                                <div class="property-row flex justify-between py-1 px-2">
+                                                    <span class="text-gray-600">Energy Consumption</span>
+                                                    <span class="font-medium">${material.sustainability.energy_consumption}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="bg-gray-50 p-4 rounded-lg">
+                                            <h3 class="font-semibold text-gray-800 mb-3">End of Life</h3>
+                                            <div class="space-y-2">
+                                                <div class="property-row flex justify-between py-1 px-2">
+                                                    <span class="text-gray-600">Biodegradable</span>
+                                                    <span class="font-medium">${material.sustainability.biodegradable ? 'Yes' : 'No'}</span>
+                                                </div>
+                                                <div class="property-row flex justify-between py-1 px-2">
+                                                    <span class="text-gray-600">Compostable</span>
+                                                    <span class="font-medium">${material.sustainability.compostable ? 'Yes' : 'No'}</span>
+                                                </div>
+                                                <div class="property-row flex justify-between py-1 px-2">
+                                                    <span class="text-gray-600">Recyclable</span>
+                                                    <span class="font-medium">${material.sustainability.recyclable ? 'Yes' : 'No'}</span>
+                                                </div>
+                                                <div class="property-row flex justify-between py-1 px-2">
+                                                    <span class="text-gray-600">Recommended Disposal</span>
+                                                    <span class="font-medium">${material.sustainability.end_of_life}</span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="bg-gray-50 p-4 rounded-lg md:col-span-2">
+                                            <h3 class="font-semibold text-gray-800 mb-3">Certifications</h3>
+                                            <div class="flex flex-wrap gap-2">
+                                                ${material.certifications.map(cert => `
+                                                    <span class="px-3 py-1 bg-green-100 text-green-700 rounded-md">${cert}</span>
+                                                `).join('')}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Applications Tab -->
+                                <div id="applications-tab" class="tab-pane hidden">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div class="bg-gray-50 p-4 rounded-lg md:col-span-2">
+                                            <h3 class="font-semibold text-gray-800 mb-3">Recommended Applications</h3>
+                                            <ul class="list-disc pl-5 space-y-2">
+                                                ${material.applications.map(app => `
+                                                    <li class="text-gray-600">${app}</li>
+                                                `).join('')}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Manufacturers Tab -->
+                                <div id="manufacturers-tab" class="tab-pane hidden">
+                                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                                        ${material.manufacturers.map(manufacturer => `
+                                            <div class="bg-gray-50 p-4 rounded-lg">
+                                                <h3 class="font-semibold text-gray-800 mb-2">${manufacturer.name}</h3>
+                                                <p class="text-gray-600 mb-3">Location: ${manufacturer.location}</p>
+                                                <a href="${manufacturer.website}" class="text-green-600 hover:text-green-800">Visit website</a>
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                                
+                                <!-- Case Studies Tab -->
+                                <div id="case-studies-tab" class="tab-pane hidden">
+                                    ${material.case_studies.map(study => `
+                                        <div class="bg-gray-50 p-4 rounded-lg mb-4">
+                                            <h3 class="font-semibold text-gray-800 mb-2">${study.title}</h3>
+                                            <p class="text-sm text-gray-500 mb-3">Company: ${study.company}</p>
+                                            <p class="text-gray-600 mb-3">${study.description}</p>
+                                            <div class="bg-white p-3 rounded border border-gray-200">
+                                                <h4 class="font-medium text-gray-700 mb-1">Results:</h4>
+                                                <p class="text-gray-600">${study.results}</p>
+                                            </div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                            
+                            <div class="mt-8 flex flex-col md:flex-row gap-4">
+                                <button id="download-datasheet" class="flex-1 bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md transition duration-150 flex justify-center items-center">
+                                    <i class="fas fa-download mr-2"></i>
+                                    Download Datasheet
+                                </button>
+                                <button id="request-sample" class="flex-1 bg-white border border-green-600 text-green-600 hover:bg-green-50 font-medium py-2 px-4 rounded-md transition duration-150 flex justify-center items-center">
+                                    <i class="fas fa-flask mr-2"></i>
+                                    Request Sample
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                materialContainer.innerHTML = materialHTML;
+                
+                // Add tab functionality
+                const tabButtons = document.querySelectorAll('.tab-btn');
+                const tabPanes = document.querySelectorAll('.tab-pane');
+                
+                tabButtons.forEach(button => {
+                    button.addEventListener('click', function() {
+                        // Remove active class from all buttons and panes
+                        tabButtons.forEach(btn => btn.classList.remove('tab-active'));
+                        tabPanes.forEach(pane => pane.classList.add('hidden'));
+                        
+                        // Add active class to clicked button
+                        this.classList.add('tab-active');
+                        
+                        // Show corresponding tab pane
+                        const tabId = this.getAttribute('data-tab');
+                        document.getElementById(`${tabId}-tab`).classList.remove('hidden');
+                    });
+                });
+                
+                // Add favorite button functionality
+                const favoriteBtn = document.getElementById('favorite-btn');
+                favoriteBtn.addEventListener('click', function() {
+                    const icon = this.querySelector('i');
+                    if (icon.classList.contains('far')) {
+                        icon.classList.remove('far');
+                        icon.classList.add('fas');
+                        icon.classList.add('text-red-500');
+                    } else {
+                        icon.classList.remove('fas');
+                        icon.classList.remove('text-red-500');
+                        icon.classList.add('far');
+                    }
+                });
+                
+                // Add download datasheet functionality
+                const downloadBtn = document.getElementById('download-datasheet');
+                downloadBtn.addEventListener('click', function() {
+                    alert('Datasheet download would start here in a real application.');
+                });
+                
+                // Add request sample functionality
+                const requestBtn = document.getElementById('request-sample');
+                requestBtn.addEventListener('click', function() {
+                    alert('Sample request form would open here in a real application.');
+                });
+                
+            } else {
+                materialContainer.innerHTML = `
+                    <div class="bg-white p-8 rounded-lg shadow-md text-center">
+                        <i class="fas fa-exclamation-triangle text-yellow-500 text-5xl mb-4"></i>
+                        <h2 class="text-2xl font-bold text-gray-800 mb-2">Material Not Found</h2>
+                        <p class="text-gray-600 mb-6">The material you're looking for doesn't exist or has been removed.</p>
+                        <a href="search.html" class="bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-6 rounded-md transition duration-150">
+                            Return to Search
+                        </a>
+                    </div>
+                `;
+            }
+        });
+    </script>
+</body>
+</html>

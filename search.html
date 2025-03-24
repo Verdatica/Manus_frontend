@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search - Bio-Materials Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .search-input:focus {
+            box-shadow: 0 0 0 3px rgba(72, 187, 120, 0.2);
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .filter-checkbox:checked + label {
+            background-color: #e6f7e9;
+            border-color: #48bb78;
+            color: #2f855a;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="text-2xl font-bold text-green-600 flex items-center">
+                    <span class="mr-2">Bio-Materials Dashboard</span>
+                </a>
+                <nav class="flex space-x-4">
+                    <a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 flex items-center">
+                        <i class="fas fa-home mr-1"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="search.html" class="px-3 py-2 rounded-md text-sm font-medium text-green-600 bg-green-50 flex items-center">
+                        <i class="fas fa-search mr-1"></i>
+                        <span>Search</span>
+                    </a>
+                    <a href="profile.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 flex items-center">
+                        <i class="fas fa-user mr-1"></i>
+                        <span>Profile</span>
+                    </a>
+                    <a href="about.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 flex items-center">
+                        <i class="fas fa-info-circle mr-1"></i>
+                        <span>About</span>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-4">Search Bio-Materials</h1>
+            <div class="relative">
+                <input type="text" id="search-input" placeholder="Search for sustainable materials..." class="search-input w-full px-5 py-4 pr-12 text-gray-700 bg-white border border-gray-300 rounded-lg focus:outline-none focus:border-green-500 transition duration-150">
+                <button id="search-button" class="absolute right-0 top-0 mt-3 mr-4 text-green-600 hover:text-green-800">
+                    <i class="fas fa-search text-xl"></i>
+                </button>
+            </div>
+            <p class="text-sm text-gray-500 mt-2">Try: "biodegradable packaging material" or "recyclable automotive components"</p>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-8">
+            <!-- Filters Panel -->
+            <div class="w-full md:w-1/4">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h2 class="text-lg font-semibold text-gray-800 mb-4">Filters</h2>
+                    
+                    <div class="mb-6">
+                        <h3 class="font-medium text-gray-700 mb-2">Material Type</h3>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <input type="checkbox" id="type-bioplastic" class="hidden filter-checkbox">
+                                <label for="type-bioplastic" class="flex-1 px-3 py-2 border border-gray-300 rounded-md text-sm cursor-pointer transition-colors">
+                                    Bioplastic
+                                </label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="type-biocomposite" class="hidden filter-checkbox">
+                                <label for="type-biocomposite" class="flex-1 px-3 py-2 border border-gray-300 rounded-md text-sm cursor-pointer transition-colors">
+                                    Biocomposite
+                                </label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="type-natural-fiber" class="hidden filter-checkbox">
+                                <label for="type-natural-fiber" class="flex-1 px-3 py-2 border border-gray-300 rounded-md text-sm cursor-pointer transition-colors">
+                                    Natural Fiber
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="font-medium text-gray-700 mb-2">Application</h3>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <input type="checkbox" id="app-packaging" class="hidden filter-checkbox">
+                                <label for="app-packaging" class="flex-1 px-3 py-2 border border-gray-300 rounded-md text-sm cursor-pointer transition-colors">
+                                    Packaging
+                                </label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="app-automotive" class="hidden filter-checkbox">
+                                <label for="app-automotive" class="flex-1 px-3 py-2 border border-gray-300 rounded-md text-sm cursor-pointer transition-colors">
+                                    Automotive
+                                </label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="app-textiles" class="hidden filter-checkbox">
+                                <label for="app-textiles" class="flex-1 px-3 py-2 border border-gray-300 rounded-md text-sm cursor-pointer transition-colors">
+                                    Textiles
+                                </label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="app-construction" class="hidden filter-checkbox">
+                                <label for="app-construction" class="flex-1 px-3 py-2 border border-gray-300 rounded-md text-sm cursor-pointer transition-colors">
+                                    Construction
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <h3 class="font-medium text-gray-700 mb-2">Sustainability</h3>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <input type="checkbox" id="sus-biodegradable" class="hidden filter-checkbox">
+                                <label for="sus-biodegradable" class="flex-1 px-3 py-2 border border-gray-300 rounded-md text-sm cursor-pointer transition-colors">
+                                    Biodegradable
+                                </label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="sus-compostable" class="hidden filter-checkbox">
+                                <label for="sus-compostable" class="flex-1 px-3 py-2 border border-gray-300 rounded-md text-sm cursor-pointer transition-colors">
+                                    Compostable
+                                </label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="sus-recyclable" class="hidden filter-checkbox">
+                                <label for="sus-recyclable" class="flex-1 px-3 py-2 border border-gray-300 rounded-md text-sm cursor-pointer transition-colors">
+                                    Recyclable
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="font-medium text-gray-700 mb-2">Bio-based Content</h3>
+                        <div class="mb-4">
+                            <label for="biobased-slider" class="block text-sm text-gray-600 mb-1">Minimum: <span id="biobased-value">50</span>%</label>
+                            <input type="range" id="biobased-slider" min="0" max="100" value="50" class="w-full">
+                        </div>
+                    </div>
+                    
+                    <button id="apply-filters" class="w-full bg-green-600 hover:bg-green-700 text-white font-medium py-2 px-4 rounded-md transition duration-150">
+                        Apply Filters
+                    </button>
+                    <button id="clear-filters" class="w-full mt-2 bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-md transition duration-150">
+                        Clear Filters
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Results Panel -->
+            <div class="w-full md:w-3/4">
+                <div class="bg-white p-6 rounded-lg shadow-md mb-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-lg font-semibold text-gray-800">Results</h2>
+                        <div class="text-sm text-gray-500">Showing 5 materials</div>
+                    </div>
+                    
+                    <div class="space-y-4" id="search-results">
+                        <!-- Results will be populated here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 mt-12">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-sm text-gray-500 mb-4 md:mb-0">
+                    &copy; 2025 Bio-Materials Dashboard. All rights reserved.
+                </p>
+                <div class="flex space-x-4">
+                    <a href="terms.html" class="text-sm text-gray-500 hover:text-gray-700">
+                        Terms
+                    </a>
+                    <a href="privacy.html" class="text-sm text-gray-500 hover:text-gray-700">
+                        Privacy
+                    </a>
+                    <a href="contact.html" class="text-sm text-gray-500 hover:text-gray-700">
+                        Contact
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search-input');
+            const searchButton = document.getElementById('search-button');
+            const searchResults = document.getElementById('search-results');
+            const biobasedSlider = document.getElementById('biobased-slider');
+            const biobasedValue = document.getElementById('biobased-value');
+            const applyFiltersBtn = document.getElementById('apply-filters');
+            const clearFiltersBtn = document.getElementById('clear-filters');
+            
+            // Sample data
+            const materials = [
+                {
+                    id: 'mat-1',
+                    name: 'BioPLA+',
+                    type: 'Bioplastic',
+                    subtype: 'PLA',
+                    description: 'A high-performance PLA-based bioplastic with enhanced mechanical properties suitable for packaging applications.',
+                    thumbnail: 'https://placehold.co/600x400/00A86B/FFFFFF?text=BioPLA%2B',
+                    sustainability: {
+                        biodegradable: true,
+                        compostable: true,
+                        recyclable: true,
+                        biobased_content: 95
+                    },
+                    applications: ['Packaging', 'Consumer goods']
+                },
+                {
+                    id: 'mat-2',
+                    name: 'EcoFiber Composite',
+                    type: 'Biocomposite',
+                    subtype: 'Fiber-reinforced',
+                    description: 'Natural fiber reinforced biocomposite with excellent strength-to-weight ratio for automotive interior components.',
+                    thumbnail: 'https://placehold.co/600x400/4B9CD3/FFFFFF?text=EcoFiber',
+                    sustainability: {
+                        biodegradable: true,
+                        compostable: false,
+                        recyclable: true,
+                        biobased_content: 80
+                    },
+                    applications: ['Automotive', 'Construction']
+                },
+                {
+                    id: 'mat-3',
+                    name: 'AlgaeFoam',
+                    type: 'Bioplastic',
+                    subtype: 'Foam',
+                    description: 'Biodegradable foam material derived from algae, suitable for protective packaging and insulation.',
+                    thumbnail: 'https://placehold.co/600x400/F26419/FFFFFF?text=AlgaeFoam',
+                    sustainability: {
+                        biodegradable: true,
+                        compostable: true,
+                        recyclable: false,
+                        biobased_content: 100
+                    },
+                    applications: ['Packaging', 'Construction']
+                },
+                {
+                    id: 'mat-4',
+                    name: 'CelluloseFilm',
+                    type: 'Bioplastic',
+                    subtype: 'Film',
+                    description: 'Transparent cellulose-based film with excellent barrier properties for food packaging.',
+                    thumbnail: 'https://placehold.co/600x400/86BBD8/FFFFFF?text=CelluloseFilm',
+                    sustainability: {
+                        biodegradable: true,
+                        compostable: true,
+                        recyclable: true,
+                        biobased_content: 90
+                    },
+                    applications: ['Packaging', 'Agriculture']
+                },
+                {
+                    id: 'mat-5',
+                    name: 'HempTex',
+                    type: 'Natural Fiber',
+                    subtype: 'Textile',
+                    description: 'Hemp-based textile material with natural antimicrobial properties for sustainable fashion.',
+                    thumbnail: 'https://placehold.co/600x400/33658A/FFFFFF?text=HempTex',
+                    sustainability: {
+                        biodegradable: true,
+                        compostable: true,
+                        recyclable: true,
+                        biobased_content: 100
+                    },
+                    applications: ['Textiles', 'Consumer goods']
+                }
+            ];
+            
+            // Parse URL parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            const queryParam = urlParams.get('q');
+            
+            if (queryParam) {
+                searchInput.value = queryParam;
+                performSearch(queryParam);
+            } else {
+                // Show all materials by default
+                displayResults(materials);
+            }
+            
+            // Update biobased content value display
+            biobasedSlider.addEventListener('input', function() {
+                biobasedValue.textContent = this.value;
+            });
+            
+            // Search functionality
+            function performSearch(query) {
+                if (!query) {
+                    displayResults(materials);
+                    return;
+                }
+                
+                query = query.toLowerCase();
+                const filteredMaterials = materials.filter(material => {
+                    return material.name.toLowerCase().includes(query) ||
+                           material.type.toLowerCase().includes(query) ||
+                           material.subtype?.toLowerCase().includes(query) ||
+                           material.description.toLowerCase().includes(query) ||
+                           material.applications.some(app => app.toLowerCase().includes(query));
+                });
+                
+                displayResults(filteredMaterials);
+            }
+            
+            // Display results
+            function displayResults(results) {
+                searchResults.innerHTML = '';
+                
+                if (results.length === 0) {
+                    searchResults.innerHTML = `
+                        <div class="text-center py-8">
+                            <i class="fas fa-search text-gray-300 text-5xl mb-4"></i>
+                            <p class="text-gray-500">No materials found matching your criteria.</p>
+                            <p class="text-gray-500 text-sm mt-2">Try adjusting your search or filters.</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                results.forEach(material => {
+                    const materialCard = document.createElement('div');
+                    materialCard.className = 'flex flex-col md:flex-row border border-gray-200 rounded-lg overflow-hidden transition duration-300 card-hover';
+                    
+                    const sustainabilityBadges = [];
+                    if (material.sustainability.biodegradable) {
+                        sustainabilityBadges.push('<span class="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">Biodegradable</span>');
+                    }
+                    if (material.sustainability.compostable) {
+                        sustainabilityBadges.push('<span class="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">Compostable</span>');
+                    }
+                    if (material.sustainability.recyclable) {
+                        sustainabilityBadges.push('<span class="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-full">Recyclable</span>');
+                    }
+                    
+                    const applicationBadges = material.applications.map(app => 
+                        `<span class="px-2 py-1 text-xs bg-blue-100 text-blue-700 rounded-full">${app}</span>`
+                    );
+                    
+                    materialCard.innerHTML = `
+                        <div class="md:w-1/4 bg-gray-100">
+                            <img src="${material.thumbnail}" alt="${material.name}" class="w-full h-full object-cover">
+                        </div>
+                        <div class="md:w-3/4 p-4">
+                            <div class="flex justify-between items-start">
+                                <div>
+                                    <h3 class="text-lg font-semibold text-gray-800">${material.name}</h3>
+                                    <div class="flex items-center mt-1 mb-2">
+                                        <span class="text-sm font-medium text-gray-600">${material.type}</span>
+                                        ${material.subtype ? `<span class="mx-2 text-gray-400">•</span><span class="text-sm text-gray-600">${material.subtype}</span>` : ''}
+                                    </div>
+                                </div>
+                                <div class="text-sm text-green-600 font-medium">
+                                    ${material.sustainability.biobased_content}% bio-based
+                                </div>
+                            </div>
+                            
+                            <p class="text-gray-600 text-sm mb-3">${material.description}</p>
+                            
+                            <div class="flex flex-wrap gap-2 mb-3">
+                                ${sustainabilityBadges.join('')}
+                                ${applicationBadges.join('')}
+                            </div>
+                            
+                            <a href="material-detail.html?id=${material.id}" class="inline-block mt-2 text-green-600 hover:text-green-800 font-medium">
+                                View details <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
+                        </div>
+                    `;
+                    
+                    searchResults.appendChild(materialCard);
+                });
+            }
+            
+            // Event listeners
+            searchButton.addEventListener('click', function() {
+                performSearch(searchInput.value.trim());
+            });
+            
+            searchInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    performSearch(searchInput.value.trim());
+                }
+            });
+            
+            applyFiltersBtn.addEventListener('click', function() {
+                const minBiobasedContent = parseInt(biobasedSlider.value);
+                
+                // Get selected material types
+                const selectedTypes = [];
+                if (document.getElementById('type-bioplastic').checked) selectedTypes.push('Bioplastic');
+                if (document.getElementById('type-biocomposite').checked) selectedTypes.push('Biocomposite');
+                if (document.getElementById('type-natural-fiber').checked) selectedTypes.push('Natural Fiber');
+                
+                // Get selected applications
+                const selectedApplications = [];
+                if (document.getElementById('app-packaging').checked) selectedApplications.push('Packaging');
+                if (document.getElementById('app-automotive').checked) selectedApplications.push('Automotive');
+                if (document.getElementById('app-textiles').checked) selectedApplications.push('Textiles');
+                if (document.getElementById('app-construction').checked) selectedApplications.push('Construction');
+                
+                // Get sustainability filters
+                const biodegradable = document.getElementById('sus-biodegradable').checked;
+                const compostable = document.getElementById('sus-compostable').checked;
+                const recyclable = document.getElementById('sus-recyclable').checked;
+                
+                // Filter materials
+                let filteredMaterials = materials;
+                
+                // Apply search query if exists
+                if (searchInput.value.trim()) {
+                    const query = searchInput.value.trim().toLowerCase();
+                    filteredMaterials = filteredMaterials.filter(material => {
+                        return material.name.toLowerCase().includes(query) ||
+                               material.type.toLowerCase().includes(query) ||
+                               material.subtype?.toLowerCase().includes(query) ||
+                               material.description.toLowerCase().includes(query) ||
+                               material.applications.some(app => app.toLowerCase().includes(query));
+                    });
+                }
+                
+                // Apply type filter
+                if (selectedTypes.length > 0) {
+                    filteredMaterials = filteredMaterials.filter(material => 
+                        selectedTypes.includes(material.type)
+                    );
+                }
+                
+                // Apply application filter
+                if (selectedApplications.length > 0) {
+                    filteredMaterials = filteredMaterials.filter(material => 
+                        material.applications.some(app => selectedApplications.includes(app))
+                    );
+                }
+                
+                // Apply sustainability filters
+                if (biodegradable) {
+                    filteredMaterials = filteredMaterials.filter(material => 
+                        material.sustainability.biodegradable
+                    );
+                }
+                
+                if (compostable) {
+                    filteredMaterials = filteredMaterials.filter(material => 
+                        material.sustainability.compostable
+                    );
+                }
+                
+                if (recyclable) {
+                    filteredMaterials = filteredMaterials.filter(material => 
+                        material.sustainability.recyclable
+                    );
+                }
+                
+                // Apply bio-based content filter
+                filteredMaterials = filteredMaterials.filter(material => 
+                    material.sustainability.biobased_content >= minBiobasedContent
+                );
+                
+                displayResults(filteredMaterials);
+            });
+            
+            clearFiltersBtn.addEventListener('click', function() {
+                // Reset checkboxes
+                document.querySelectorAll('.filter-checkbox').forEach(checkbox => {
+                    checkbox.checked = false;
+                });
+                
+                // Reset slider
+                biobasedSlider.value = 50;
+                biobasedValue.textContent = '50';
+                
+                // Show all materials or search results
+                if (searchInput.value.trim()) {
+                    performSearch(searchInput.value.trim());
+                } else {
+                    displayResults(materials);
+                }
+            });
+            
+            // Initialize filter checkboxes to work with custom styling
+            document.querySelectorAll('.filter-checkbox').forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    // No immediate action, filters are applied when the Apply button is clicked
+                });
+            });
+        });
+    </script>
+</body>
+</html>
