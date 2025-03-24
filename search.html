@@ -200,18 +200,15 @@
         </div>
     </footer>
 
+    <!-- Include Manus API client and search interface -->
+    <script src="js/manus-api.js"></script>
+    <script src="js/search-interface.js"></script>
+    
+    <!-- Legacy sample data - kept for reference but not used -->
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('search-input');
-            const searchButton = document.getElementById('search-button');
-            const searchResults = document.getElementById('search-results');
-            const biobasedSlider = document.getElementById('biobased-slider');
-            const biobasedValue = document.getElementById('biobased-value');
-            const applyFiltersBtn = document.getElementById('apply-filters');
-            const clearFiltersBtn = document.getElementById('clear-filters');
-            
-            // Sample data
-            const materials = [
+        // This sample data is kept for reference but is no longer used
+        // The search now uses Manus API for dynamic results
+        const _unused_sample_materials = [
                 {
                     id: 'mat-1',
                     name: 'BioPLA+',
