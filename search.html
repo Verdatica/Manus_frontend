@@ -314,12 +314,37 @@
                 }
                 
                 query = query.toLowerCase();
+                
+                // Split the query into keywords for better matching
+                const keywords = query.split(/\s+/).filter(word => word.length > 2);
+                
                 const filteredMaterials = materials.filter(material => {
-                    return material.name.toLowerCase().includes(query) ||
-                           material.type.toLowerCase().includes(query) ||
-                           material.subtype?.toLowerCase().includes(query) ||
-                           material.description.toLowerCase().includes(query) ||
-                           material.applications.some(app => app.toLowerCase().includes(query));
+                    // Check for direct inclusion first (exact matches)
+                    if (material.name.toLowerCase().includes(query) ||
+                        material.type.toLowerCase().includes(query) ||
+                        material.subtype?.toLowerCase().includes(query) ||
+                        material.description.toLowerCase().includes(query) ||
+                        material.applications.some(app => app.toLowerCase().includes(query))) {
+                        return true;
+                    }
+                    
+                    // If no exact match, check for keyword matches
+                    if (keywords.length > 0) {
+                        // Check if any keyword matches material properties
+                        return keywords.some(keyword => {
+                            return material.name.toLowerCase().includes(keyword) ||
+                                   material.type.toLowerCase().includes(keyword) ||
+                                   material.subtype?.toLowerCase().includes(keyword) ||
+                                   material.description.toLowerCase().includes(keyword) ||
+                                   material.sustainability && 
+                                   (material.sustainability.biodegradable && keyword === "biodegradable" ||
+                                    material.sustainability.compostable && keyword === "compostable" ||
+                                    material.sustainability.recyclable && keyword === "recyclable") ||
+                                   material.applications.some(app => app.toLowerCase().includes(keyword));
+                        });
+                    }
+                    
+                    return false;
                 });
                 
                 displayResults(filteredMaterials);
