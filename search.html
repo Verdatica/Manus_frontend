@@ -302,12 +302,29 @@
     </div>
 
     <!-- Scripts -->
-    <script src="js/application-mapping.js"></script>
-    <script src="js/context-aware-search.js"></script>
-    <script src="js/enhanced-materials-data.js"></script>
-    <script src="js/application-specific-search.js"></script>
-    <script src="js/manus-api.js"></script>
-    <script src="js/search-interface.js"></script>
+    <script>
+        // Dynamic base URL detection
+        var baseUrl = '';
+        if (window.location.hostname === 'verdatica.github.io') {
+            baseUrl = '/Manus_frontend';
+        }
+        
+        // Dynamically load JavaScript files with the correct base URL
+        function loadScript(src) {
+            var script = document.createElement('script');
+            script.src = baseUrl + '/' + src;
+            document.head.appendChild(script);
+            return script;
+        }
+        
+        // Load all required scripts in sequence
+        loadScript('js/application-mapping.js');
+        loadScript('js/context-aware-search.js');
+        loadScript('js/enhanced-materials-data.js');
+        loadScript('js/application-specific-search.js');
+        loadScript('js/manus-api.js');
+        loadScript('js/search-interface.js');
+    </script>
     <script>
         // Initialize the search interface when the DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
