@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search - Bio-Materials Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .search-input:focus {
+            box-shadow: 0 0 0 3px rgba(72, 187, 120, 0.2);
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .filter-checkbox:checked + label {
+            background-color: #e6f7e9;
+            border-color: #48bb78;
+            color: #2f855a;
+        }
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: #48bb78;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .property-table td {
+            padding: 0.5rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        .property-table tr:last-child td {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans">
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <a href="index.html" class="text-2xl font-bold text-green-600 flex items-center">
+                    <span class="mr-2">Bio-Materials Dashboard</span>
+                </a>
+                <nav class="flex space-x-4">
+                    <a href="index.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 flex items-center">
+                        <i class="fas fa-home mr-1"></i>
+                        <span>Home</span>
+                    </a>
+                    <a href="search.html" class="px-3 py-2 rounded-md text-sm font-medium text-green-600 bg-green-50 flex items-center">
+                        <i class="fas fa-search mr-1"></i>
+                        <span>Search</span>
+                    </a>
+                    <a href="profile.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 flex items-center">
+                        <i class="fas fa-user mr-1"></i>
+                        <span>Profile</span>
+                    </a>
+                    <a href="about.html" class="px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 flex items-center">
+                        <i class="fas fa-info-circle mr-1"></i>
+                        <span>About</span>
+                    </a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold text-gray-800 mb-6">Search Bio-Materials</h1>
+        
+        <div class="mb-8">
+            <div class="relative">
+                <input 
+                    type="text" 
+                    id="search-input" 
+                    class="search-input w-full px-4 py-3 pl-12 rounded-lg border border-gray-300 focus:outline-none focus:border-green-500 transition-colors"
+                    placeholder="A high-performance PLA-based bioplastic with enhanced mechanical properties."
+                >
+                <div class="absolute left-4 top-3.5 text-gray-400">
+                    <i class="fas fa-search"></i>
+                </div>
+                <button 
+                    id="search-button"
+                    class="absolute right-3 top-2 bg-green-500 hover:bg-green-600 text-white px-4 py-1.5 rounded-md transition-colors"
+                >
+                    Search
+                </button>
+            </div>
+            <p class="text-sm text-gray-500 mt-2">
+                Try: "biodegradable packaging material" or "recyclable automotive components"
+            </p>
+        </div>
+
+        <div class="flex flex-col md:flex-row gap-8">
+            <!-- Filters Section -->
+            <div class="w-full md:w-1/4">
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <h2 class="text-xl font-semibold text-gray-800 mb-4">Filters</h2>
+                    
+                    <!-- Material Type Filter -->
+                    <div class="mb-6">
+                        <h3 class="text-md font-medium text-gray-700 mb-2">Material Type</h3>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <input type="checkbox" id="type-bioplastic" class="filter-checkbox hidden" data-filter="type" data-value="Bioplastic">
+                                <label for="type-bioplastic" class="flex-1 px-3 py-2 rounded-md border border-gray-300 text-sm cursor-pointer transition-colors">
+                                    Bioplastic
+                                </label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="type-biocomposite" class="filter-checkbox hidden" data-filter="type" data-value="Biocomposite">
+                                <label for="type-biocomposite" class="flex-1 px-3 py-2 rounded-md border border-gray-300 text-sm cursor-pointer transition-colors">
+                                    Biocomposite
+                                </label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="type-natural-fiber" class="filter-checkbox hidden" data-filter="type" data-value="Natural Fiber">
+                                <label for="type-natural-fiber" class="flex-1 px-3 py-2 rounded-md border border-gray-300 text-sm cursor-pointer transition-colors">
+                                    Natural Fiber
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Application Filter -->
+                    <div class="mb-6">
+                        <h3 class="text-md font-medium text-gray-700 mb-2">Application</h3>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <input type="checkbox" id="app-packaging" class="filter-checkbox hidden" data-filter="application" data-value="Packaging">
+                                <label for="app-packaging" class="flex-1 px-3 py-2 rounded-md border border-gray-300 text-sm cursor-pointer transition-colors">
+                                    Packaging
+                                </label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="app-automotive" class="filter-checkbox hidden" data-filter="application" data-value="Automotive">
+                                <label for="app-automotive" class="flex-1 px-3 py-2 rounded-md border border-gray-300 text-sm cursor-pointer transition-colors">
+                                    Automotive
+                                </label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="app-textiles" class="filter-checkbox hidden" data-filter="application" data-value="Textiles">
+                                <label for="app-textiles" class="flex-1 px-3 py-2 rounded-md border border-gray-300 text-sm cursor-pointer transition-colors">
+                                    Textiles
+                                </label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="app-construction" class="filter-checkbox hidden" data-filter="application" data-value="Construction">
+                                <label for="app-construction" class="flex-1 px-3 py-2 rounded-md border border-gray-300 text-sm cursor-pointer transition-colors">
+                                    Construction
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Sustainability Filter -->
+                    <div class="mb-6">
+                        <h3 class="text-md font-medium text-gray-700 mb-2">Sustainability</h3>
+                        <div class="space-y-2">
+                            <div class="flex items-center">
+                                <input type="checkbox" id="sus-biodegradable" class="filter-checkbox hidden" data-filter="sustainability" data-value="biodegradable">
+                                <label for="sus-biodegradable" class="flex-1 px-3 py-2 rounded-md border border-gray-300 text-sm cursor-pointer transition-colors">
+                                    Biodegradable
+                                </label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="sus-compostable" class="filter-checkbox hidden" data-filter="sustainability" data-value="compostable">
+                                <label for="sus-compostable" class="flex-1 px-3 py-2 rounded-md border border-gray-300 text-sm cursor-pointer transition-colors">
+                                    Compostable
+                                </label>
+                            </div>
+                            <div class="flex items-center">
+                                <input type="checkbox" id="sus-recyclable" class="filter-checkbox hidden" data-filter="sustainability" data-value="recyclable">
+                                <label for="sus-recyclable" class="flex-1 px-3 py-2 rounded-md border border-gray-300 text-sm cursor-pointer transition-colors">
+                                    Recyclable
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Bio-based Content Slider -->
+                    <div class="mb-6">
+                        <h3 class="text-md font-medium text-gray-700 mb-2">Bio-based Content</h3>
+                        <div class="text-sm text-gray-600 mb-2">Minimum: <span id="biobased-value">50</span>%</div>
+                        <input 
+                            type="range" 
+                            id="biobased-slider" 
+                            min="0" 
+                            max="100" 
+                            value="50" 
+                            class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                        >
+                    </div>
+                    
+                    <!-- Filter Buttons -->
+                    <div class="space-y-2">
+                        <button id="apply-filters" class="w-full bg-green-500 hover:bg-green-600 text-white py-2 rounded-md transition-colors">
+                            Apply Filters
+                        </button>
+                        <button id="clear-filters" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-700 py-2 rounded-md transition-colors">
+                            Clear Filters
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Results Section -->
+            <div class="w-full md:w-3/4">
+                <div class="bg-white rounded-lg shadow-sm p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-xl font-semibold text-gray-800">Results</h2>
+                        <span class="text-sm text-gray-500">Showing 0 materials</span>
+                    </div>
+                    
+                    <div id="search-results" class="space-y-4">
+                        <!-- Search results will be displayed here -->
+                        <div class="text-center py-8">
+                            <i class="fas fa-search text-gray-300 text-5xl mb-4"></i>
+                            <p class="text-gray-500">Enter a search query to find sustainable bio-materials</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-white mt-12 py-8 border-t border-gray-200">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p class="text-gray-600">&copy; 2025 Bio-Materials Dashboard</p>
+                    <p class="text-sm text-gray-500 mt-1">Powered by Manus</p>
+                </div>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-600 hover:text-green-600">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="text-gray-600 hover:text-green-600">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="text-gray-600 hover:text-green-600">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Dynamic base URL detection
+        var baseUrl = '';
+        if (window.location.hostname === 'verdatica.github.io') {
+            baseUrl = '/Manus_frontend';
+        }
+        
+        // Dynamically load JavaScript files with the correct base URL
+        function loadScript(src) {
+            var script = document.createElement('script');
+            script.src = baseUrl + '/' + src;
+            document.head.appendChild(script);
+            return script;
+        }
+        
+        // Load all required scripts in sequence
+        loadScript('js/application-mapping.js');
+        loadScript('js/context-aware-search.js');
+        loadScript('js/enhanced-materials-data.js');
+        loadScript('js/application-specific-search.js');
+        loadScript('js/manus-api.js');
+        loadScript('js/manus-api-connector.js');
+        loadScript('js/manus-results-formatter.js');
+        loadScript('js/manus-event-dispatcher.js');
+        loadScript('js/search-interface.js');
+        loadScript('js/search-interface-update.js');
+        loadScript('js/manus-api-integration.js');
+    </script>
+</body>
+</html>
